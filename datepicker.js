@@ -6,15 +6,15 @@ Kylin.datapicker = function(){
 		},
 		getPos = function (el) {
 			for (var pos = {x:0, y:0}; el; el = el.offsetParent) {
-				pos.x += el.offsetLeft;
-				pos.y += el.offsetTop;
+				pos.x += el.offsetLeft
+				pos.y += el.offsetTop
 			}
-			return pos;
+			return pos
 		};
 	function init(inputId){
 		this.inputId = inputId
 		this.table = document.createElement('table')
-		this.table.style.cssText = 'position:absolute;'
+		this.table.style.cssText = 'position:absolute;display:none'
 		this.table.style.left = getPos($(this.inputId)).x + 'px'
 		this.table.style.top = getPos($(this.inputId)).y + $(this.inputId).offsetHeight +'px'
 
@@ -81,11 +81,15 @@ Kylin.datapicker = function(){
 				var target = e.target
 				if(target.tagName === 'TD' && target.title ==='valid'){
 					$(that.inputId).value = year+ '-' + (month+1)+ '-' +target.innerHTML
+					$(that.inputId + '-' + 'table').style.display='none'
 				}else if(target.id === 'leftdirection'){
 					that.createTable(year,month)
 				}else if(target.id === 'rightdirection'){
 					that.createTable(year,month+2)
 				}
+			},false)
+			$(this.inputId).addEventListener('click',function(){
+				$(that.inputId + '-' + 'table').style.display=''
 			},false)
 		}
 	}
